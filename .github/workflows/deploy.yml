@@ -10,6 +10,7 @@ env:
   SILO_IMAGE_NAME: orleanscart-silo
   AZURE_RESOURCE_GROUP_NAME: orleans-resourcegroup
   AZURE_RESOURCE_GROUP_LOCATION: eastus
+  AZURE_SUBSCRIPTION_ID: f1ee2647-e5d4-4c50-9e76-0a42f00dc90c
 
 jobs:
   build-and-deploy:
@@ -29,6 +30,16 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set Subscription Id
+      run: |
+        az account set -s ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Create Resource Group
+      run: |
+        az group create \
+          --location ${{ env.AZURE_RESOURCE_GROUP_LOCATION }} \
+          --name ${{ env.AZURE_RESOURCE_GROUP_NAME }}
 
     - name: Flex ACR bicep
       run: |
