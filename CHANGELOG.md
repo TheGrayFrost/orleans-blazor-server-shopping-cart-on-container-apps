@@ -4,7 +4,7 @@
 # x.y.z (yyyy-mm-dd)
 
 *Features*
-* ...
+* Added Workload Profile
 
 *Bug Fixes*
 * ...
